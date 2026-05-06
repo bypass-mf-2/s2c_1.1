@@ -1,0 +1,32 @@
+// Scan to Cart — local config template.
+//
+// Copy this file to `Config.xcconfig` (gitignored) and fill in your keys.
+// Values are surfaced to Swift via Info.plist substitution → Config.swift.
+//
+// IMPORTANT: xcconfig treats `//` as a comment, so URLs must escape the
+// double-slash. Use `https:/$()/...` instead of `https://...`. Keys without
+// URLs are unaffected.
+
+// Supabase (optional — app works offline without these)
+SUPABASE_URL =
+SUPABASE_ANON_KEY =
+
+// USDA FoodData Central API key (optional — improves food search)
+// https:/$()/fdc.nal.usda.gov/api-key-signup.html
+USDA_API_KEY =
+
+// Garmin Connect proxy URL (optional — required for Garmin sync)
+// e.g. https:/$()/your-server.example.com/api/garmin
+GARMIN_PROXY_URL =
+
+// SerpApi key (optional — powers real grocery price comparison via Google Shopping)
+// https:/$()/serpapi.com — free tier: 250 searches/month
+SERPAPI_KEY =
+
+// RevenueCat iOS API key (required for subscriptions)
+// https:/$()/app.revenuecat.com
+REVENUECAT_API_KEY =
+
+// Sentry DSN (optional — crash reporting). Free tier: 5K errors/month.
+// https:/$()/sentry.io — create a project, copy "Client Keys (DSN)"
+SENTRY_DSN =

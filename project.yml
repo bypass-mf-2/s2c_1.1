@@ -1,0 +1,97 @@
+name: ScanToCart
+options:
+  bundleIdPrefix: com.trevorgoodwill
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+packages:
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios-spm.git
+    from: 5.0.0
+  Supabase:
+    url: https://github.com/supabase/supabase-swift.git
+    from: 2.0.0
+  Sentry:
+    url: https://github.com/getsentry/sentry-cocoa.git
+    from: 8.0.0
+configFiles:
+  Debug: Config.xcconfig
+  Release: Config.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    DEVELOPMENT_TEAM: 32MSXQ5479
+    MARKETING_VERSION: "2.0"
+    CURRENT_PROJECT_VERSION: "13"
+targets:
+  ScanToCart:
+    type: application
+    platform: iOS
+    sources:
+      - path: ScanToCart
+        excludes:
+          - "Info.plist"
+    dependencies:
+      - package: RevenueCat
+      - package: Supabase
+      - package: Sentry
+        product: Sentry
+    entitlements:
+      path: ScanToCart/ScanToCart.entitlements
+      properties:
+        com.apple.developer.applesignin:
+          - Default
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
+    resources:
+      - ScanToCart/Assets.xcassets
+    info:
+      path: ScanToCart/Info.plist
+      properties:
+        CFBundleDisplayName: Scan to Cart
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSCameraUsageDescription: Scan to Cart needs camera access to scan product barcodes.
+        NSHealthShareUsageDescription: Scan to Cart syncs nutrition data with Apple Health to track daily intake.
+        NSHealthUpdateUsageDescription: Scan to Cart sends nutrition data to Apple Health.
+        NSLocationWhenInUseUsageDescription: Scan to Cart uses your location to show nearby grocery stores and compare prices.
+        SUPABASE_URL: $(SUPABASE_URL)
+        SUPABASE_ANON_KEY: $(SUPABASE_ANON_KEY)
+        USDA_API_KEY: $(USDA_API_KEY)
+        GARMIN_PROXY_URL: $(GARMIN_PROXY_URL)
+        SERPAPI_KEY: $(SERPAPI_KEY)
+        REVENUECAT_API_KEY: $(REVENUECAT_API_KEY)
+        SENTRY_DSN: $(SENTRY_DSN)
+        ITSAppUsesNonExemptEncryption: false
+        CFBundleURLTypes:
+          - CFBundleURLName: com.trevorgoodwill.scantocart.auth
+            CFBundleURLSchemes:
+              - com.trevorgoodwill.scantocart
+        UILaunchScreen:
+          UIColorName: AccentColor
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.trevorgoodwill.ScantoCart
+        TARGETED_DEVICE_FAMILY: "1"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: "YES"
+        DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    postBuildScripts:
+      - name: Copy Sentry dSYMs into archive
+        runOnlyWhenInstalling: false
+        outputFiles: []
+        script: |
+          set -e
+          if [ -z "${DWARF_DSYM_FOLDER_PATH}" ]; then exit 0; fi
+          # Sentry SPM unpacks dSYMs inside its XCFramework artifact folder.
+          SOURCEPACKAGES_DIR="${BUILD_DIR%/Build/*}/SourcePackages/artifacts"
+          if [ ! -d "$SOURCEPACKAGES_DIR" ]; then exit 0; fi
+          find "$SOURCEPACKAGES_DIR" -name "Sentry.framework.dSYM" -path "*/ios-arm64*/*" -not -path "*-simulator*" -type d 2>/dev/null | while read dsym; do
+            echo "Copying Sentry dSYM: $dsym -> ${DWARF_DSYM_FOLDER_PATH}/"
+            cp -R "$dsym" "${DWARF_DSYM_FOLDER_PATH}/"
+            break
+          done
