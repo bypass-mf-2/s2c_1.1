@@ -32,10 +32,7 @@ struct UserSettings: Codable, Hashable {
         nutritionGoals: .default,
         monthlyBudget: 500,
         healthApps: [
-            HealthAppConnection(name: "Apple Health", connected: false),
-            HealthAppConnection(name: "Garmin Connect", connected: false),
-            HealthAppConnection(name: "Fitbit", connected: false),
-            HealthAppConnection(name: "MyFitnessPal", connected: false)
+            HealthAppConnection(name: "Apple Health", connected: false)
         ]
     )
 }

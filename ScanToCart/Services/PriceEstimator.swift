@@ -11,7 +11,8 @@ enum PriceEstimator {
         .frozen: (3, 8),
         .pantry: (2, 5),
         .cereal: (3, 6),
-        .condiments: (2, 5)
+        .condiments: (2, 5),
+        .supplements: (22, 55)
     ]
 
     private static let storeRatios: [StoreName: Double] = [
@@ -26,6 +27,14 @@ enum PriceEstimator {
 
     static func inferCategory(from name: String) -> ProductCategory {
         let lower = name.lowercased()
+        // Supplements first — they often contain words like "milk" (muscle milk)
+        // or "bar" (protein bar) that would otherwise mis-route.
+        if lower.containsAny(of: [
+            "muscle milk", "protein powder", "whey", "casein", "mass gainer",
+            "creatine", "bcaa", "pre-workout", "preworkout", "pre workout",
+            "supplement", "vitamin", "multivitamin", "collagen", "probiotic",
+            "protein bar", "protein shake", "isolate"
+        ]) { return .supplements }
         if lower.containsAny(of: ["milk", "cheese", "yogurt", "butter", "cream"]) { return .dairy }
         if lower.containsAny(of: ["apple", "banana", "berry", "fruit", "vegetable", "salad", "lettuce", "tomato", "onion", "potato", "avocado"]) { return .produce }
         if lower.containsAny(of: ["chicken", "beef", "pork", "steak", "salmon", "fish", "turkey", "sausage", "bacon", "meat"]) { return .meat }

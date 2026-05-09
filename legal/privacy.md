@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Effective Date:** 2026-05-06
+**Effective Date:** 2026-05-09
 **App:** Scan to Cart
 **Developer:** Trevor Goodwill
 
@@ -32,14 +32,23 @@ This Privacy Policy explains what information Scan to Cart collects, how we use 
 
 We do **not** sell your personal information. We do **not** share it with advertisers. We do **not** use it for marketing emails.
 
-## Service providers we use
+## Third-party services we share data with
 
-- **Supabase** — stores your account data and shopping history (encrypted at rest)
-- **RevenueCat** — manages subscriptions
-- **Open Food Facts, USDA FoodData Central** — public food databases (we send only the barcode or search term, never personal data)
-- **Apple Maps / Apple Health** — Apple's on-device services
-- **Kroger** — only when you connect your account; we send only what's required to manage your cart
-- **Sentry** — anonymized crash reports (no personal data attached)
+We share the minimum data needed for each service to function. We do not sell or rent your data to third parties.
+
+| Service | What we share | Purpose |
+|---|---|---|
+| **Supabase** (Supabase Inc.) | Email, name, scan history, profile, Kroger session token | Account storage and sync |
+| **RevenueCat** (RevenueCat Inc.) | Anonymized user ID, purchase events | Subscription management |
+| **Open Food Facts** (Open Food Facts non-profit) | Barcode or search query | Public food database lookup; **no personal data** |
+| **USDA FoodData Central** (US government) | Search query | Public food database lookup; **no personal data** |
+| **Sentry** (Functional Software Inc.) | Crash logs, device model, OS version, anonymized user ID | Crash reporting |
+| **Apple** (Apple Inc.) | Authentication tokens (Sign in with Apple), Health data you opt to write | iOS platform integrations |
+| **Google** (Google LLC) | OAuth tokens, email (Sign in with Google) | Optional sign-in |
+| **Kroger** (The Kroger Co.) | Items you choose to add to cart, OAuth tokens | Optional cart sync; only when you connect |
+| **Apple MapKit** (Apple Inc.) | Approximate location, query "grocery store" | Real-time nearby store search; not stored |
+
+Each provider has its own privacy policy. We encourage you to review them. We do not transfer data to data brokers, advertising networks, or analytics providers other than those listed above.
 
 ## Your rights
 

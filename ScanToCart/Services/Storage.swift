@@ -38,8 +38,16 @@ final class Storage {
 
     func loadSettings() -> UserSettings {
         guard let data = defaults.data(forKey: Keys.settings),
-              let settings = try? decoder.decode(UserSettings.self, from: data) else {
+              var settings = try? decoder.decode(UserSettings.self, from: data) else {
             return .default
+        }
+        // Migration: drop deprecated stub integrations (Garmin/Fitbit/MyFitnessPal).
+        // Only Apple Health is wired up; we removed the others to avoid shipping
+        // non-functional UI per Apple Guideline 2.1.
+        let supported: Set<String> = ["Apple Health"]
+        settings.healthApps = settings.healthApps.filter { supported.contains($0.name) }
+        if settings.healthApps.isEmpty {
+            settings.healthApps = [HealthAppConnection(name: "Apple Health", connected: false)]
         }
         return settings
     }

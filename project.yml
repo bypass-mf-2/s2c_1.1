@@ -22,7 +22,7 @@ settings:
     SWIFT_VERSION: "5.10"
     DEVELOPMENT_TEAM: 32MSXQ5479
     MARKETING_VERSION: "2.0"
-    CURRENT_PROJECT_VERSION: "13"
+    CURRENT_PROJECT_VERSION: "16"
 targets:
   ScanToCart:
     type: application
@@ -35,7 +35,7 @@ targets:
       - package: RevenueCat
       - package: Supabase
       - package: Sentry
-        product: Sentry
+        product: Sentry-Dynamic
     entitlements:
       path: ScanToCart/ScanToCart.entitlements
       properties:

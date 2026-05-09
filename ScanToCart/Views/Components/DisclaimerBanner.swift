@@ -10,10 +10,10 @@ struct DisclaimerBanner: View {
                     .foregroundStyle(Theme.warmAccent)
                     .font(.subheadline)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Beta — limited price data")
+                    Text("Estimated prices for most stores")
                         .font(.footnote.weight(.semibold))
                         .foregroundStyle(Theme.textPrimary)
-                    Text("Real prices currently work for Kroger when connected. Other stores show estimates while we partner with each chain. Connect Kroger in Profile for live data.")
+                    Text("Connect Kroger in Profile for live prices. Other stores show estimates based on category and nutrition.")
                         .font(.caption)
                         .foregroundStyle(Theme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)

@@ -140,7 +140,7 @@ struct ProfileScreen: View {
                             set: { _ in store.toggleHealthApp(app.name) }
                         ))
                     }
-                    Text("Apple Health writes nutrition data when you log a scan. Garmin / Fitbit integration is coming soon.")
+                    Text("Apple Health writes nutrition data automatically when you log a scan.")
                         .font(.footnote)
                         .foregroundStyle(Theme.textSecondary)
                 }
